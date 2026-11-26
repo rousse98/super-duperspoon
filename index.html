@@ -1,0 +1,435 @@
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="robots" content="noindex, nofollow">
+  <title id="page-title">fotos discretas</title>
+  <meta content="https://i.postimg.cc/Sxfqc8vM/2543345345.jpg" property="og:image">
+  <link rel="shortcut icon" href="https://cdn.jmpcdn.com/assets/3420/images/2.ico" type="image/x-icon">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #2b2b2b;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    #VideoBg {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1000;
+      object-fit: cover;
+    }
+
+    .layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: -999;
+    }
+
+    .wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .step-block {
+      max-width: 550px;
+      z-index: 10;
+    }
+
+    .question-title {
+      font-size: 22px;
+      margin-bottom: 25px;
+      font-weight: bold;
+      line-height: 1.4;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .buttons-block {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .step-btn {
+      padding: 14px 40px;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      border: none;
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .step-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+      filter: brightness(1.1);
+    }
+
+    .step-btn.secondary {
+      background: linear-gradient(135deg, #434343, #000000);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    .step-btn.secondary:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    #notif-sidebar {
+      position: fixed !important;
+      right: 15px !important;
+      bottom: 20px !important;
+      z-index: 999999 !important;
+      display: flex !important;
+      flex-direction: column-reverse !important;
+      width: 270px !important;
+      max-height: 75vh !important;
+      overflow: hidden !important;
+      background: #ffffff !important;
+      border: 1px solid #c5c5c5 !important;
+      box-shadow: -2px 2px 10px rgba(0,0,0,0.3) !important;
+      border-radius: 4px;
+    }
+
+    @media screen and (max-width: 768px) {
+      #VideoBg {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+      }
+
+      #notif-sidebar {
+        right: 50% !important;
+        transform: translateX(50%) !important;
+        top: 15px !important;
+        bottom: auto !important;
+        width: 90% !important;
+        max-width: 320px !important;
+        max-height: 65px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
+      }
+      .question-title {
+        font-size: 18px;
+      }
+      .step-btn {
+        padding: 12px 25px;
+        font-size: 15px;
+      }
+    }
+
+    .notif-card {
+      background: #ffffff !important;
+      color: #333333 !important;
+      padding: 8px 12px !important;
+      border-top: 1px solid #dddddd !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      font-size: 13px !important;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease-in-out !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+    }
+
+    .notif-card.show {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .notif-content {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+
+    .notif-guy-img {
+      width: 28px !important;
+      height: 28px !important;
+      object-fit: cover !important;
+      border-radius: 50% !important;
+      border: 1.5px solid #007bff !important;
+    }
+
+    .notif-flag-img {
+      width: 20px !important;
+      height: 14px !important;
+      object-fit: cover !important;
+      border: 1px solid #ccc !important;
+    }
+
+    .notif-details {
+      display: flex !important;
+      flex-direction: column !important;
+      line-height: 1.25 !important;
+    }
+
+    .notif-ip {
+      font-weight: bold !important;
+      color: #333333 !important;
+      font-size: 12px !important;
+    }
+
+    .notif-msg {
+      color: #28a745 !important;
+      font-size: 11px !important;
+    }
+
+    .close-btn {
+      color: #bbbbbb !important;
+      cursor: pointer !important;
+      font-size: 14px !important;
+      border: 1px solid #cccccc !important;
+      border-radius: 50% !important;
+      width: 18px !important;
+      height: 18px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      line-height: 1 !important;
+      flex-shrink: 0 !important;
+    }
+  </style>
+</head>
+<!-- BEGIN SHAREAHOLIC CODE -->
+<link rel="preload" href="https://cdn.shareaholic.net/assets/pub/shareaholic.js" as="script" />
+<meta name="shareaholic:site_id" content="ebc690df3a79c2bfa2977942bf87b2c7" />
+<script data-cfasync="false" async src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
+<!-- END SHAREAHOLIC CODE -->
+<body>
+  <div class="layer"></div>
+  
+  <div class="wrap">
+    <div class="step-block">
+      <!-- Paso 1 -->
+      <div id="step-1" class="step-item" style="display: block;">
+        <div class="question-title" id="q-text-1">Szexuális szolgáltatásokat, táncot és erotikus masszázst kínálok otthon, szeretnéd látni a katalógusomat?</div>
+        <div class="buttons-block">
+          <div class="step-btn" id="btn-yes" onclick="siguientePaso()">Igen</div>
+          <div class="step-btn secondary" id="btn-no" onclick="siguientePaso()">Nem</div>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div id="step-2" class="step-item" style="display: none;">
+        <div class="question-title" id="q-text-2">MEGJEGYZÉS: Beleegyezel, hogy tiszteletben tartod az alább látható meztelen nőket? Ha valakit ismersz, ne mondd el senkinek, és ne terjessz pletykákat...</div>
+        <div class="buttons-block">
+          <a href="https://aoarlv.hornygiirls.com/?utm_source=da57dc555e50572d&ban=fb&j1=1&s1=234303&s2=2299307&s3=Luci" class="step-btn" id="btn-accept" style="text-decoration: none; display: inline-block; line-height: normal;">ELFOGADOM</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="notif-sidebar"></div>
+
+  <video autoplay muted loop playsinline id="VideoBg">
+    <source src="https://directo.discrettasliveftosgroup.com/video.mp4" type="video/mp4">
+  </video>
+
+  <script type="text/javascript">
+    // Diccionario mundial de idiomas
+    const diccionarioMundial = {
+      es: {
+        title: "Discreto y fotos exclusivas",
+        q1: "¿Ofrezco servicios de citas, baile y masajes en casa, te gustaría ver mi catálogo?",
+        yes: "Sí",
+        no: "No",
+        q2: "AVISO: ¿Estás de acuerdo en respetar a las personas que aparecen a continuación? Si conoces a alguien, guárdalo en privado...",
+        accept: "ACEPTAR"
+      },
+      ro: {
+        title: "Noapte discretă și fotografii exclusive",
+        q1: "Ofer servicii de întâlniri, dans și masaj acasă, ai vrea să vezi catalogul meu?",
+        yes: "Da",
+        no: "Nu",
+        q2: "NOTĂ: Ești de acord să respecți persoanele afișate mai jos? Dacă cunoști pe cineva, păstrează secretul...",
+        accept: "ACCEPT"
+      },
+      hu: {
+        title: "Diszkrét éjszaka, fényképek",
+        q1: "Szexuális szolgáltatásokat, táncot és erotikus masszázst kínálok otthon, szeretnéd látni a katalógusomat?",
+        yes: "Igen",
+        no: "Nem",
+        q2: "MEGJEGYZÉS: Beleegyezel, hogy tiszteletben tartod az alább látható meztelen nőket? Ha valakit ismersz, ne mondd el senkinek...",
+        accept: "ELFOGADOM"
+      },
+      en: {
+        title: "Discreet and exclusive photos",
+        q1: "I offer home dates, dancing, and massage services, would you like to see my catalog?",
+        yes: "Yes",
+        no: "No",
+        q2: "NOTICE: Do you agree to respect the people shown below? If you know anyone, keep it private...",
+        accept: "ACCEPT"
+      },
+      de: {
+        title: "Diskrete Nacht und exklusive Fotos",
+        q1: "Ich biete Hausbesuche, Tanz und Massagen an, möchtest du meinen Katalog sehen?",
+        yes: "Ja",
+        no: "Nein",
+        q2: "HINWEIS: Stimmst du zu, die unten gezeigten Personen zu respektieren? Wenn du jemanden kennst, behalte es für dich...",
+        accept: "AKZEPTIEREN"
+      },
+      fr: {
+        title: "Photos discrètes et exclusives",
+        q1: "Je propose des rendez-vous à domicilio, de la danse et des massages, aimerais-tu voir mon catalogue ?",
+        yes: "Oui",
+        no: "Non",
+        q2: "AVIS : Acceptes-tu de respecter les personnes présentées ci-dessous ? Si tu connais quelqu'un, garde-le pour toi...",
+        accept: "ACCEPTER"
+      },
+      it: {
+        title: "Foto discrete ed esclusive",
+        q1: "Offro appuntamenti a domicilio, ballo e massaggi, vorresti vedere il mio catalogo?",
+        yes: "Sì",
+        no: "No",
+        q2: "AVVISO: Accetti di rispettare le persone mostrate di seguito? Se conosci qualcuno, tienilo per te...",
+        accept: "ACCETTA"
+      },
+      pt: {
+        title: "Fotos discretas e exclusivas",
+        q1: "Ofereço serviços de encontros, dança e massagem em casa, gostaria de ver meu catálogo?",
+        yes: "Sim",
+        no: "Não",
+        q2: "AVISO: Você concorda em respeitar as pessoas mostradas abaixo? Se você conhece alguém, mantenha em sigilo...",
+        accept: "ACEITAR"
+      },
+      pl: {
+        title: "Dyskretne i ekskluzywne zdjęcia",
+        q1: "Oferuję spotkania, taniec i usługi masażu w domu, czy chcesz zobaczyć mój katalog?",
+        yes: "Tak",
+        no: "Nie",
+        q2: "UWAGA: Czy zgadzasz się szanować osoby przedstawione poniżej? Jeśli kogoś znasz, zachowaj to dla siebie...",
+        accept: "AKCEPTUJ"
+      },
+      cs: {
+        title: "Diskrétní noc a exkluzivní fotky",
+        q1: "Nabízím domácí rande, tanec a masáže, chtěli byste vidět můj katalog?",
+        yes: "Ano",
+        no: "Ne",
+        q2: "UPOZORNĚNÍ: Souhlasíte s respektováním osob zobrazených níže? Pokud někoho znáte, nechte si to pro sebe...",
+        accept: "SOUHLASÍM"
+      },
+      ru: {
+        title: "Дискретные и эксклюзивные фото",
+        q1: "Я предлагаю услуги на дому, танцы и массаж, хотели бы вы посмотреть мой каталог?",
+        yes: "Да",
+        no: "Нет",
+        q2: "УВЕДОМЛЕНИЕ: Согласны ли вы уважать людей, показанных ниже? Если вы кого-то знаете, держите это в секрете...",
+        accept: "ПРИНЯТЬ"
+      }
+    };
+
+    // Detección automática del idioma del navegador
+    window.addEventListener("DOMContentLoaded", () => {
+      const userLang = (navigator.language || navigator.userLanguage || "hu").toLowerCase().substring(0, 2);
+
+      if (diccionarioMundial[userLang]) {
+        const t = diccionarioMundial[userLang];
+        document.getElementById("page-title").innerText = t.title;
+        document.getElementById("q-text-1").innerText = t.q1;
+        document.getElementById("btn-yes").innerText = t.yes;
+        document.getElementById("btn-no").innerText = t.no;
+        document.getElementById("q-text-2").innerText = t.q2;
+        document.getElementById("btn-accept").innerText = t.accept;
+        document.documentElement.lang = userLang;
+      }
+    });
+
+    function siguientePaso() {
+      document.getElementById('step-1').style.display = 'none';
+      document.getElementById('step-2').style.display = 'block';
+    }
+
+    // Lista única de hombres con rostros y países totalmente distintos
+    const poolNotificaciones = [
+      { msg: "Sikeres regisztráció", flag: "https://flagcdn.com/w40/hu.png", foto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" },
+      { msg: "Úspěšně zaregistrováno", flag: "https://flagcdn.com/w40/cz.png", foto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" },
+      { msg: "Erfolgreich registriert", flag: "https://flagcdn.com/w40/de.png", foto: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop" },
+      { msg: "Inscrit avec succès", flag: "https://flagcdn.com/w40/fr.png", foto: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" },
+      { msg: "Registrado con éxito", flag: "https://flagcdn.com/w40/es.png", foto: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&h=100&fit=crop" },
+      { msg: "Registrato con successo", flag: "https://flagcdn.com/w40/it.png", foto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" },
+      { msg: "Zarejestrowano pomyślnie", flag: "https://flagcdn.com/w40/pl.png", foto: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop" },
+      { msg: "Înregistrat cu succes", flag: "https://flagcdn.com/w40/ro.png", foto: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&h=100&fit=crop" }
+    ];
+
+    let colaDisponible = [];
+
+    function obtenerNotificacionUnica() {
+      if (colaDisponible.length === 0) {
+        colaDisponible = [...poolNotificaciones]; // Recarga la lista cuando se vacíe
+      }
+      // Saca un elemento aleatorio sin repetir hasta que se agoten todos
+      const indiceAleatorio = Math.floor(Math.random() * colaDisponible.length);
+      return colaDisponible.splice(indiceAleatorio, 1)[0];
+    }
+
+    function generarIP() {
+      return `${Math.floor(Math.random() * 190) + 10}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 254) + 1}`;
+    }
+
+    function agregarNotificacion() {
+      const sidebar = document.getElementById("notif-sidebar");
+      if (!sidebar) return;
+
+      const item = obtenerNotificacionUnica();
+      const ip = generarIP();
+
+      const card = document.createElement("div");
+      card.className = "notif-card";
+      card.innerHTML = `
+        <div class="notif-content">
+          <img src="${item.foto}" class="notif-guy-img" alt="avatar">
+          <img src="${item.flag}" class="notif-flag-img" alt="flag">
+          <div class="notif-details">
+            <span class="notif-ip">${ip}</span>
+            <span class="notif-msg">${item.msg}</span>
+          </div>
+        </div>
+        <span class="close-btn" onclick="this.parentElement.remove()">×</span>
+      `;
+
+      sidebar.insertBefore(card, sidebar.firstChild);
+      setTimeout(() => { card.classList.add("show"); }, 50);
+
+      const esMovil = window.innerWidth <= 768;
+      const maximoVisible = esMovil ? 1 : 6;
+
+      if (sidebar.children.length > maximoVisible) {
+        sidebar.removeChild(sidebar.lastChild);
+      }
+    }
+
+    window.onload = function() {
+      agregarNotificacion();
+      setTimeout(agregarNotificacion, 800);
+      setInterval(agregarNotificacion, 3000);
+    };
+  </script>
+  <script id="_wauv5d">var _wau = _wau || []; _wau.push(["classic", "payeyo", "v5d"]);</script><script async src="//waust.at/c.js"></script>
+
+</body>
+
+</html>
